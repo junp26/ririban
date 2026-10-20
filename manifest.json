@@ -1,7 +1,7 @@
 {
-  "name": "日日办 · 小事清单",
+  "name": "日日办",
   "short_name": "日日办",
-  "description": "专门处理琐事的小事清单：勾掉洗袜子、作业和杂事，也能给不想动的自己按一个五分钟的开工键。数据独立，不计入专注统计。",
+  "description": "专门处理洗袜子、作业这类琐事：不想动的时候先按一个五分钟的开工键，办完记一笔时间。数据独立，不计入专注统计。",
   "lang": "zh-CN",
   "id": "./",
   "start_url": "./?sharecode=2DLZSDK5VB",
@@ -21,25 +21,25 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "icons/icon-192.png?v=3&sharecode=2DLZSDK5VB",
+      "src": "icons/icon-192.png?v=4&sharecode=2DLZSDK5VB",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-512.png?v=3&sharecode=2DLZSDK5VB",
+      "src": "icons/icon-512.png?v=4&sharecode=2DLZSDK5VB",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-maskable-512.png?v=3&sharecode=2DLZSDK5VB",
+      "src": "icons/icon-maskable-512.png?v=4&sharecode=2DLZSDK5VB",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "icon.svg?v=3&sharecode=2DLZSDK5VB",
+      "src": "icon.svg?v=4&sharecode=2DLZSDK5VB",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"

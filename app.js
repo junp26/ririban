@@ -1,7 +1,7 @@
 'use strict';
 
 /* ==========================================================================
-   日日办 · 小事清单
+   日日办
    数据键：rrb-chores-v1（与日日新的 rrx-focus-v1 完全独立）
    ========================================================================== */
 
@@ -831,12 +831,9 @@
     else if (hour >= 14 && hour < 18) salutation = '下午好';
     else if (hour >= 23 || hour < 5) salutation = '夜深了';
 
-    const pending = 0;
     const done = completedRecords(todayKey()).length;
-    let tail = '今天慢慢来';
-    if (pending > 0) tail = `还有 ${pending} 件小事`;
-    else if (done > 0) tail = `今天清空了，办了 ${done} 件`;
-    else tail = '清单还是空的';
+    let tail = '今天还没开工';
+    if (done > 0) tail = `今天办了 ${done} 件`;
 
     els.greeting.textContent = `${salutation} · ${tail}`;
   }
@@ -954,7 +951,7 @@
     } else if (currentView === 'stats') {
       title = '办事统计 · 日日办';
     } else {
-      title = '日日办 · 小事清单';
+      title = '日日办';
     }
     if (title !== lastTitle) {
       document.title = title;
@@ -1710,7 +1707,7 @@
     els.clearDataBtn.addEventListener('click', async () => {
       const ok = await confirmAction({
         title: '清空办事记录？',
-        message: '所有办完记录、动手时间和开张记录都会删掉，清单里的小事会保留。这个操作不能撤销。',
+        message: '所有办完记录、动手时间和开张记录都会删掉。这个操作不能撤销。',
         okLabel: '清空',
       });
       if (!ok) return;
@@ -1721,7 +1718,7 @@
       save();
       renderAll();
       renderStats();
-      toast('记录清空了，清单还在。');
+      toast('记录清空了。');
     });
 
     // 分类
