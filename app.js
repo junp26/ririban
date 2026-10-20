@@ -1971,9 +1971,12 @@
   function registerServiceWorker() {
     if (!('serviceWorker' in navigator)) return;
     if (location.protocol === 'file:') return;
+    // 分享链接靠 sharecode 通行，注册时也带上，掉 cookie 也能装上
+    const code = new URLSearchParams(location.search).get('sharecode');
+    const swUrl = code ? 'sw.js?sharecode=' + encodeURIComponent(code) : 'sw.js';
     window.addEventListener('load', () => {
       navigator.serviceWorker
-        .register('sw.js')
+        .register(swUrl)
         .then((registration) => {
           // 每次打开都检查一遍有没有新版本，有就立刻换
           try { registration.update(); } catch (error) { /* 忽略 */ }

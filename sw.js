@@ -1,8 +1,10 @@
 'use strict';
 
-// v4：修复升级时新旧文件混搭导致白屏的问题。
-// 原则：页面和代码永远以网络为准，缓存只做离线兜底。
-const CACHE_NAME = 'rrb-chores-shell-v4';
+// v5：分享链接靠 sharecode 通行，缓存键也带上同一参数，保证离线与在线一致。
+const CACHE_NAME = 'rrb-chores-shell-v5';
+
+const SHARE_CODE = new URL(self.location.href).searchParams.get('sharecode');
+const SHARE_Q = SHARE_CODE ? '?sharecode=' + encodeURIComponent(SHARE_CODE) : '';
 
 const PRECACHE = [
   './',
@@ -12,7 +14,7 @@ const PRECACHE = [
   './celebrations.js',
   './app.js',
   './manifest.json',
-];
+].map((url) => url + SHARE_Q);
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();

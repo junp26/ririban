@@ -18,32 +18,41 @@
 
 ## 打开方式
 
-**线上正式地址（手机装应用用这个）：**
+**线上地址（手机装应用用这个，WorkBuddy 发布）：**
+
+```
+https://ririban.app.workbuddy.host/?sharecode=2DLZSDK5VB
+```
+
+**备用地址（GitHub Pages，同样可安装）：**
 
 ```
 https://junp26.github.io/ririban/
 ```
 
-地址也单独放在 `网址.txt` 里，打开那个文件长按即可只复制网址。
+两个地址都写在 `网址.txt` 里，打开那个文件长按即可只复制网址。
 
 **电脑本地：** 双击 `打开日日办.bat`，或直接双击 `index.html`。
 
-### 为什么换成 GitHub Pages
+### 分享链接为什么一开始装不上（已修）
 
-之前的 WorkBuddy 分享链接（`ririban.app.workbuddy.host`）靠 **cookie + sharecode** 做访问校验，浏览器在读取 PWA 清单（manifest）时按规范**不携带 cookie**，拿到 403，于是判定「不可安装」：
+这个发布平台靠 **cookie + sharecode** 做访问校验，而浏览器在读取 PWA 清单（manifest）和图标时，按规范**不携带 cookie**，拿到 403：
 
-- 只能创建一个普通网页快捷方式 → 图标抓不到，显示域名首字母 **W**；
-- 打开还是浏览器标签页 → 顶部有地址栏；
-- 装在主屏上也只是个书签。
+- 清单读不到 → 判定「不可安装」，只能建一个普通网页快捷方式；
+- 图标抓不到 → 显示域名首字母 **W**；
+- 打开仍是浏览器标签页 → 顶部有地址栏。
 
-GitHub Pages 是公开托管，清单、图标、Service Worker 都能正常获取，**可以真正装成独立应用**（无地址栏、真实图标、断网可用）。这一点已用浏览器安装性检测验证：错误数为 0。
+修复方式：把 `?sharecode=…` 挂到 manifest、图标、样式和脚本的地址上，等于每次请求都自带通行凭证。现在清单里的 `start_url` 和 `icons` 都带这串参数，无凭据也能 200，安装判定所需的资源全部可达。
+
+> 换发布、换 sharecode 时，要同步替换 `index.html`、`manifest.json`、`sw.js` 里的 `2DLZSDK5VB`。
+> GitHub Pages 版会忽略这个无关参数，所以同一份代码两边都能用。
 
 ### 手机安装步骤（安卓）
 
-1. 用 **Chrome** 或 **Edge** 打开 `https://junp26.github.io/ririban/`
-   —— 不要在微信、WorkBuddy 内置浏览器里打开，那些浏览器不支持安装；
+1. 用 **Chrome** 或 **Edge** 打开 `https://ririban.app.workbuddy.host/?sharecode=2DLZSDK5VB`
+   —— 不要在微信、QQ、WorkBuddy 内置浏览器里打开，那些浏览器不支持安装应用，只会建快捷方式；
 2. 首次打开后等 2–3 秒（让 Service Worker 装好）；
-3. 右上角 `⋮` → 选 **「安装应用」**（有的版本叫「添加到主屏幕」）；
+3. 右上角 `⋮` → 选 **「安装应用」**（有这个菜单项就说明浏览器认可了；只有「添加到主屏幕」则说明还差一步，见下）；
 4. 桌面出现图标，名称是 **日日办**，图案是墨绿底 + 米白「日」字；
 5. 从桌面图标打开 → 全屏无地址栏。
 
