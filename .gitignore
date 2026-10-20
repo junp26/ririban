@@ -1,0 +1,4 @@
+.workbuddy/
+*.genie
+Screenshot_*.jpg
+scripts/__pycache__/

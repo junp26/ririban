@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f0e6">
+  <meta name="description" content="日日办，专门对付那些不想动的小事。洗袜子、交作业、杂事——按下五分钟开工键就行，用不着先有动力。数据独立，不计入专注统计。">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="日日办">
+  <title>日日办 · 小事清单</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png?v=3">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=3">
+  <link rel="icon" type="image/svg+xml" href="icon.svg?v=3">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png?v=3">
+  <link rel="manifest" href="manifest.json?v=3">
+  <link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <svg class="svg-sprite" aria-hidden="true">
+    <defs>
+      <symbol id="i-play" viewBox="0 0 24 24">
+        <path d="M8.5 5.8v12.4a.8.8 0 0 0 1.22.68l9.9-6.2a.8.8 0 0 0 0-1.36l-9.9-6.2a.8.8 0 0 0-1.22.68Z"/>
+      </symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24">
+        <path d="M9 5.5v13M15 5.5v13"/>
+      </symbol>
+      <symbol id="i-stop" viewBox="0 0 24 24">
+        <rect x="6" y="6" width="12" height="12" rx="2"/>
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24">
+        <path d="m5 12.5 4.4 4.4L19 7.5"/>
+      </symbol>
+      <symbol id="i-x" viewBox="0 0 24 24">
+        <path d="M6 6l12 12M18 6 6 18"/>
+      </symbol>
+      <symbol id="i-settings" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19 13.2a7.5 7.5 0 0 0 0-2.4l1.8-1.4-1.8-3.1-2.15.86a7.4 7.4 0 0 0-2.08-1.2L14.5 3h-5l-.27 2.96a7.4 7.4 0 0 0-2.08 1.2L5 6.3 3.2 9.4 5 10.8a7.5 7.5 0 0 0 0 2.4l-1.8 1.4 1.8 3.1 2.15-.86a7.4 7.4 0 0 0 2.08 1.2L9.5 21h5l.27-2.96a7.4 7.4 0 0 0 2.08-1.2l2.15.86 1.8-3.1Z"/>
+      </symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>
+      </symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24">
+        <rect x="4" y="5.5" width="16" height="15" rx="3"/><path d="M8 3.5v4M16 3.5v4M4 10h16"/>
+      </symbol>
+      <symbol id="i-arrow-left" viewBox="0 0 24 24">
+        <path d="M14.5 5.5 8 12l6.5 6.5"/>
+      </symbol>
+      <symbol id="i-arrow-right" viewBox="0 0 24 24">
+        <path d="M9.5 5.5 16 12l-6.5 6.5"/>
+      </symbol>
+      <symbol id="i-chevron-down" viewBox="0 0 24 24">
+        <path d="m6.5 9.5 5.5 5.5 5.5-5.5"/>
+      </symbol>
+      <symbol id="i-download" viewBox="0 0 24 24">
+        <path d="M12 4v10.5M8 11l4 4 4-4M5 19.5h14"/>
+      </symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24">
+        <path d="M5 7h14M9 7V4.5h6V7M7 7l.8 13h8.4L17 7M10 11v5.5M14 11v5.5"/>
+      </symbol>
+      <symbol id="i-flame" viewBox="0 0 24 24">
+        <path d="M12 21c3.9 0 6.5-2.65 6.5-6.2 0-2.55-1.4-4.9-3.55-6.75C13.5 6.78 12 5.08 11.9 3c-1.8 2.25-2.1 4.2-1.3 6.32C9.35 8.96 8.45 8.5 8.1 7.5 6.7 9.13 6 10.9 6 12.8 6 17.3 8.15 21 12 21Z"/>
+        <path d="M12 18c1.5 0 2.5-1.03 2.5-2.4 0-1.05-.66-2.03-1.5-2.82-.45-.43-.83-.9-1.02-1.48-.72.9-1.98 2.72-1.98 4.3C10 16.97 11 18 12 18Z"/>
+      </symbol>
+      <symbol id="i-undo" viewBox="0 0 24 24">
+        <path d="M4.5 9.5h9a5 5 0 1 1 0 10H8"/>
+        <path d="M8 5.5 4 9.5l4 4"/>
+      </symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24">
+        <path d="M18 9.5a6 6 0 0 0-12 0c0 6-2.5 7-2.5 7h17S18 15.5 18 9.5ZM10 20h4"/>
+      </symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24">
+        <path d="M5 19c6.5.5 13-3.5 14-14-8.5-1-14 3.5-14 9 0 1.8.6 3.4 1.6 4.6"/>
+        <path d="M5.5 18.5 14 10"/>
+      </symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4.1"/>
+        <path d="M12 2.8v2.3M12 18.9v2.3M2.8 12h2.3M18.9 12h2.3M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6"/>
+      </symbol>
+      <symbol id="i-sparkles" viewBox="0 0 24 24">
+        <path d="M10.5 3.5 12 8.1l4.6 1.5L12 11.1 10.5 15.7 9 11.1 4.4 9.6 9 8.1Z"/>
+        <path d="M17.8 14.2 18.6 16.8l2.6.8-2.6.8-.8 2.6-.8-2.6-2.6-.8 2.6-.8Z"/>
+      </symbol>
+      <symbol id="i-music" viewBox="0 0 24 24">
+        <path d="M9 18V5.5l10-2V16"/>
+        <circle cx="6.5" cy="18" r="2.5"/>
+        <circle cx="16.5" cy="16" r="2.5"/>
+      </symbol>
+      <symbol id="i-edit" viewBox="0 0 24 24">
+        <path d="M4.5 19.5h4L20 8a2.6 2.6 0 0 0-3.7-3.7L4.5 15.5Z"/>
+        <path d="m14.5 6.5 3 3"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- 启动页：与日日系列一致，米白底 + 居中墨绿图标 + 名称 -->
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash-stage">
+      <svg class="splash-icon" viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="17" fill="#2f5f49"/>
+        <g transform="translate(11.200 42.187) scale(0.04028 -0.04028)">
+          <path d="M331 647H670L691 687Q698 702 706.5 702.0Q715 702 753.5 678.5Q792 655 802.5 647.0Q813 639 813.0 630.0Q813 621 770 596V-1L772 -91Q772 -103 769.5 -106.0Q767 -109 748.5 -119.0Q730 -129 708.0 -136.5Q686 -144 680.5 -144.0Q675 -144 675 -132V-18H313V-108Q313 -120 304.5 -126.0Q296 -132 263.5 -146.5Q231 -161 225.0 -161.0Q219 -161 220 -151Q225 -102 225 -51V620Q225 662 222 705Q285 677 331 647ZM675 336V618H313V336ZM675 19V305H313V19Z" fill="#f7f1e4"/>
+        </g>
+      </svg>
+      <p class="splash-name">日日办 · 小事清单</p>
+      <p class="splash-motto">日拱一卒，办完就好</p>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <button class="brand" type="button" data-view="today" aria-label="日日办，回到今天">
+      <span class="brand-mark" aria-hidden="true">办</span>
+      <span class="brand-text">日日办<small>LITTLE THINGS</small></span>
+    </button>
+
+    <nav class="view-nav" aria-label="主导航">
+      <button class="nav-item is-active" type="button" data-view="today" aria-current="page">今天</button>
+      <button class="nav-item" type="button" data-view="stats">统计</button>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="settingsBtn" type="button" aria-label="打开设置" title="设置">
+        <svg class="icon" aria-hidden="true"><use href="#i-settings"></use></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="view is-active" id="todayView" aria-labelledby="todayHeadline">
+      <div class="today-shell">
+        <div class="today-intro">
+          <p class="eyebrow" id="greeting">晚上好，今天慢慢来</p>
+          <h1 id="todayHeadline">一件一件办，日子就清了。</h1>
+        </div>
+
+        <section class="checkin-card" id="checkinCard" aria-labelledby="checkinTitle" hidden>
+          <div class="checkin-head">
+            <span class="checkin-mark" aria-hidden="true">
+              <svg class="icon"><use href="#i-sun"></use></svg>
+            </span>
+            <div class="checkin-heading">
+              <p class="checkin-kicker" id="checkinTitle">今日开张</p>
+              <p class="checkin-hint" id="checkinHint">先给自己一句话，再动手。</p>
+            </div>
+            <button class="btn btn-checkin" id="checkinBtn" type="button">开张</button>
+          </div>
+        </section>
+
+        <article class="work-card" id="workCard" aria-label="开工计时">
+          <div class="timer-top">
+            <div class="timer-mode" id="workMode">
+              <span class="status-dot" aria-hidden="true"></span>
+              <span id="workModeLabel">准备开工</span>
+            </div>
+            <button class="duration-control" id="durationControl" type="button" aria-haspopup="dialog" aria-controls="durationDialog" aria-label="选择开工时长，当前 5 分钟">
+              <span class="duration-control-value" id="durationControlValue">5</span>
+              <span class="duration-control-unit">分钟</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+            </button>
+          </div>
+
+          <div class="timer-stage">
+            <svg class="timer-ring" viewBox="0 0 360 360" aria-hidden="true">
+              <defs>
+                <linearGradient id="ringGradient" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#6f9b7f"/>
+                  <stop offset="1" stop-color="#2e5d48"/>
+                </linearGradient>
+                <linearGradient id="overtimeGradient" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#d8b273"/>
+                  <stop offset="1" stop-color="#b8863b"/>
+                </linearGradient>
+              </defs>
+              <circle class="ring-track" cx="180" cy="180" r="158"></circle>
+              <circle class="ring-progress" id="progressRing" cx="180" cy="180" r="158"></circle>
+            </svg>
+            <div class="timer-center">
+              <div class="clock" id="clockDisplay" role="timer" aria-live="off">05:00</div>
+              <div class="clock-caption" id="clockCaption">不想找动力，先按开工</div>
+            </div>
+          </div>
+
+          <div class="timer-actions" id="idleActions">
+            <button class="btn btn-primary btn-large" id="startBtn" type="button">
+              <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>
+              开工
+            </button>
+            <button class="btn btn-secondary btn-large" id="scheduleBtn" type="button">
+              <svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg>
+              预约
+            </button>
+          </div>
+
+          <div class="timer-actions" id="runningActions" hidden>
+            <button class="btn btn-primary btn-large" id="pauseBtn" type="button">
+              <svg class="icon" aria-hidden="true"><use href="#i-pause"></use></svg>
+              <span id="pauseBtnLabel">暂停</span>
+            </button>
+            <button class="btn btn-ghost btn-large" id="endBtn" type="button">
+              <svg class="icon" aria-hidden="true"><use href="#i-stop"></use></svg>
+              收工
+            </button>
+          </div>
+
+          <figure class="work-quote" id="workQuote" hidden>
+            <blockquote class="work-quote-text" id="workQuoteText"></blockquote>
+            <figcaption class="work-quote-meta">
+              <span class="work-quote-tag" id="workQuoteTag">开工前</span>
+              <button class="text-btn work-quote-next" id="workQuoteNext" type="button">
+                <svg class="icon" aria-hidden="true"><use href="#i-undo"></use></svg>
+                换一句
+              </button>
+            </figcaption>
+          </figure>
+
+          <p class="idle-note" id="idleNote">五分钟也算办了。不用等有动力，先动手。</p>
+
+          <div class="schedule-strip" id="scheduleStrip" hidden>
+            <span class="schedule-icon" aria-hidden="true">
+              <svg class="icon"><use href="#i-clock"></use></svg>
+            </span>
+            <div class="schedule-copy">
+              <strong id="scheduleTitle">已预约</strong>
+              <span id="scheduleMeta"></span>
+            </div>
+            <button class="text-btn is-accent" id="scheduleStartBtn" type="button" hidden>开始</button>
+            <button class="icon-btn icon-btn-sm" id="cancelScheduleBtn" type="button" aria-label="取消预约" title="取消预约">
+              <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+            </button>
+          </div>
+        </article>
+
+        <div class="today-strip" aria-label="今日概览">
+          <div class="today-stat">
+            <strong id="todayDone">0</strong>
+            <span>今日办完</span>
+          </div>
+          <span class="today-sep" aria-hidden="true"></span>
+          <div class="today-stat">
+            <strong id="todayStarts">0</strong>
+            <span>开工次数</span>
+          </div>
+          <span class="today-sep" aria-hidden="true"></span>
+          <div class="today-stat">
+            <strong id="todayMinutes">0</strong>
+            <span>动手分钟</span>
+          </div>
+          <button class="mini-link" type="button" data-view="stats">
+            看统计
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="statsView" aria-labelledby="statsHeadline" hidden>
+      <div class="stats-shell">
+        <div class="stats-heading">
+          <div>
+            <p class="eyebrow">你办过的小事</p>
+            <h1 id="statsHeadline">办完的，都算数。</h1>
+          </div>
+          <button class="btn btn-secondary btn-export" id="exportBtn" type="button">
+            <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+            导出数据
+          </button>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric-card">
+            <div class="metric-icon metric-icon-green">
+              <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>
+            </div>
+            <p class="metric-label">累计办完</p>
+            <p class="metric-value"><strong id="metricTotal">0</strong><span>件</span></p>
+            <p class="metric-hint" id="metricTotalHint">从第一件小事开始</p>
+          </article>
+          <article class="metric-card">
+            <div class="metric-icon metric-icon-gold">
+              <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>
+            </div>
+            <p class="metric-label">开工次数</p>
+            <p class="metric-value"><strong id="metricStarts">0</strong><span>次</span></p>
+            <p class="metric-hint">按过开工键的次数</p>
+          </article>
+          <article class="metric-card">
+            <div class="metric-icon metric-icon-tomato">
+              <svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>
+            </div>
+            <p class="metric-label">累计动手</p>
+            <p class="metric-value"><strong id="metricMinutes">0</strong><span>分钟</span></p>
+            <p class="metric-hint" id="metricMinutesHint">每一分钟都是真动手</p>
+          </article>
+          <article class="metric-card">
+            <div class="metric-icon metric-icon-leaf">
+              <svg class="icon" aria-hidden="true"><use href="#i-flame"></use></svg>
+            </div>
+            <p class="metric-label">连续办事</p>
+            <p class="metric-value"><strong id="metricStreak">0</strong><span>天</span></p>
+            <p class="metric-hint" id="metricStreakHint">今天也办一件</p>
+          </article>
+        </div>
+
+        <section class="panel distribution-panel" id="distributionPanel" aria-labelledby="distributionTitle">
+          <div class="panel-head distribution-head">
+            <div>
+              <h2 id="distributionTitle">每日办事</h2>
+              <p>先看这一天的分类占比，点分类看具体办了什么。</p>
+            </div>
+          </div>
+          <div class="period-toolbar">
+            <div class="period-copy">
+              <strong id="periodTitle">今天</strong>
+              <span id="periodRange">10月19日</span>
+            </div>
+            <div class="period-nav">
+              <button class="icon-btn icon-btn-sm" id="periodPrevBtn" type="button" aria-label="前一天">
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+              </button>
+              <input class="period-date-input" id="periodDateInput" type="date" aria-label="选择要查看的日期">
+              <button class="icon-btn icon-btn-sm" id="periodNextBtn" type="button" aria-label="后一天">
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+              </button>
+              <button class="text-btn" id="periodTodayBtn" type="button" hidden>回到今天</button>
+            </div>
+          </div>
+          <div class="distribution-content">
+            <div class="distribution-chart-wrap">
+              <div class="donut distribution-donut" id="distributionChart"></div>
+              <p class="distribution-summary" id="distributionSummary">共 0 次</p>
+            </div>
+            <div class="distribution-list-wrap">
+              <div class="distribution-list-head">
+                <button class="icon-btn icon-btn-sm" id="distributionBackBtn" type="button" aria-label="返回全部分类" hidden>
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+                </button>
+                <div class="distribution-list-title">
+                  <strong id="distributionListTitle">全部分类</strong>
+                  <span id="distributionRange">今天</span>
+                </div>
+                <span class="distribution-total" id="distributionTotal">0 件</span>
+              </div>
+              <div class="category-list" id="categoryList"></div>
+            </div>
+          </div>
+          <p class="distribution-empty" id="distributionEmpty" hidden>这一天还没办什么。</p>
+          <p class="pie-insight" id="distributionInsight"></p>
+        </section>
+
+        <div class="stats-grid">
+          <section class="panel week-panel" aria-labelledby="weekTitle">
+            <div class="panel-head">
+              <div>
+                <h2 id="weekTitle">每周办完</h2>
+                <p id="weekSubtitle">本周 · 每天清一点。</p>
+              </div>
+            </div>
+            <div class="week-toolbar">
+              <button class="icon-btn icon-btn-sm" id="weekPrevBtn" type="button" aria-label="上一周">
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+              </button>
+              <button class="month-title" id="weekLabel" type="button" title="回到本周">10/19 – 10/25</button>
+              <input class="week-date-input" id="weekDateInput" type="date" aria-label="选择要查看的周">
+              <button class="icon-btn icon-btn-sm" id="weekNextBtn" type="button" aria-label="下一周">
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+              </button>
+              <button class="text-btn" id="weekTodayBtn" type="button" hidden>回到本周</button>
+            </div>
+            <div class="week-chart" id="weekChart"></div>
+            <p class="week-hint">点一根柱子，看那天的每日办事。</p>
+          </section>
+
+          <section class="panel heatmap-panel" aria-labelledby="heatmapTitle">
+            <div class="panel-head">
+              <div>
+                <h2 id="heatmapTitle">每月办事</h2>
+                <p id="heatmapSubtitle">月历热力图，颜色越深，办得越多。</p>
+              </div>
+              <div class="heatmap-legend" aria-hidden="true">
+                <span>少</span>
+                <i class="level-0"></i><i class="level-1"></i><i class="level-2"></i><i class="level-3"></i><i class="level-4"></i>
+                <span>多</span>
+              </div>
+            </div>
+            <div class="month-toolbar">
+              <button class="icon-btn icon-btn-sm" id="heatmapPrevBtn" type="button" aria-label="上个月">
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+              </button>
+              <button class="month-title" id="heatmapMonthLabel" type="button" title="回到本月">2026年10月</button>
+              <button class="icon-btn icon-btn-sm" id="heatmapNextBtn" type="button" aria-label="下个月">
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+              </button>
+              <input class="month-date-input" id="heatmapDateInput" type="date" aria-label="选择要查看的月份">
+            </div>
+            <div class="month-calendar">
+              <div class="month-weekdays" aria-hidden="true">
+                <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+              </div>
+              <div class="month-grid" id="monthGrid"></div>
+            </div>
+            <p class="heatmap-foot" id="heatmapFoot"></p>
+          </section>
+        </div>
+
+        <p class="stats-footnote">
+          <svg class="icon" aria-hidden="true"><use href="#i-leaf"></use></svg>
+          数据只保存在本机浏览器，和日日新的专注记录互不相干。
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>日日办 · 小事清单</span>
+    <span class="footer-quote">日拱一卒，功不唐捐。</span>
+  </footer>
+
+  <div class="checkin-reveal" id="checkinReveal" hidden role="dialog" aria-modal="true" aria-labelledby="checkinRevealTitle" aria-describedby="checkinRevealText">
+    <div class="checkin-reveal-glow" aria-hidden="true"></div>
+    <div class="checkin-reveal-sparks" id="checkinRevealSparks" aria-hidden="true"></div>
+    <div class="checkin-reveal-stage">
+      <span class="checkin-reveal-mark" aria-hidden="true">
+        <svg class="icon"><use href="#i-sun"></use></svg>
+      </span>
+      <p class="checkin-reveal-kicker" id="checkinRevealTitle">今天开张</p>
+      <p class="checkin-reveal-text" id="checkinRevealText"></p>
+      <p class="checkin-reveal-meta" id="checkinRevealMeta"></p>
+      <button class="btn btn-checkin-reveal" id="checkinRevealClose" type="button">去办一件</button>
+    </div>
+  </div>
+
+  <dialog class="dialog dialog-duration" id="durationDialog" aria-labelledby="durationDialogTitle">
+    <form id="durationForm" novalidate>
+      <div class="dialog-head">
+        <div>
+          <p class="eyebrow">开工时长</p>
+          <h2 id="durationDialogTitle">这次给自己几分钟？</h2>
+        </div>
+        <button class="icon-btn dialog-close" type="button" data-close="durationDialog" aria-label="关闭">
+          <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+        </button>
+      </div>
+      <div class="dialog-body">
+        <div class="preset-grid" id="durationPresetGrid" role="group" aria-label="常用开工时长">
+          <button type="button" data-minutes="2"><strong>2</strong><span>分钟</span></button>
+          <button type="button" data-minutes="5" class="is-selected"><strong>5</strong><span>分钟</span></button>
+          <button type="button" data-minutes="10"><strong>10</strong><span>分钟</span></button>
+          <button type="button" data-minutes="15"><strong>15</strong><span>分钟</span></button>
+          <button type="button" data-minutes="30"><strong>30</strong><span>分钟</span></button>
+        </div>
+        <div class="custom-duration">
+          <div class="custom-duration-head">
+            <label for="customMinutes">自定义</label>
+            <span>1–180 分钟</span>
+          </div>
+          <div class="stepper">
+            <button class="stepper-btn" id="customMinus" type="button" aria-label="减少一分钟">−</button>
+            <input id="customMinutes" type="number" min="1" max="180" step="1" inputmode="numeric" value="5" aria-label="自定义开工分钟数">
+            <span class="stepper-suffix">分钟</span>
+            <button class="stepper-btn" id="customPlus" type="button" aria-label="增加一分钟">+</button>
+          </div>
+        </div>
+        <p class="form-error" id="durationError" role="alert" hidden></p>
+      </div>
+      <div class="dialog-foot">
+        <button class="btn btn-ghost" type="button" data-close="durationDialog">取消</button>
+        <button class="btn btn-primary" type="submit">用这个时长</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="dialog" id="scheduleDialog" aria-labelledby="scheduleDialogTitle">
+    <form id="scheduleForm" novalidate>
+      <div class="dialog-head">
+        <div>
+          <p class="eyebrow">给未来的自己</p>
+          <h2 id="scheduleDialogTitle">预约一次开工</h2>
+        </div>
+        <button class="icon-btn dialog-close" type="button" data-close="scheduleDialog" aria-label="关闭">
+          <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+        </button>
+      </div>
+      <div class="dialog-body">
+        <div class="form-block">
+          <span class="field-label">什么时候</span>
+          <div class="date-row">
+            <div class="segmented segmented-sm" id="scheduleDayPicker">
+              <button type="button" data-day="today" class="is-selected">今天</button>
+              <button type="button" data-day="tomorrow">明天</button>
+            </div>
+            <input id="scheduleTime" type="time" required aria-label="预约开始时间">
+          </div>
+        </div>
+        <div class="form-block">
+          <span class="field-label">办多久</span>
+          <div class="segmented segmented-wide" id="scheduleDurationPicker">
+            <button type="button" data-minutes="2">2 分</button>
+            <button type="button" data-minutes="5" class="is-selected">5 分</button>
+            <button type="button" data-minutes="10">10 分</button>
+            <button type="button" data-minutes="15">15 分</button>
+            <button type="button" data-minutes="30">30 分</button>
+          </div>
+          <label class="inline-custom-duration" for="scheduleCustomMinutes">
+            <span>自定义</span>
+            <input id="scheduleCustomMinutes" type="number" min="1" max="180" step="1" inputmode="numeric" value="5" aria-label="自定义预约分钟数">
+            <span>分钟</span>
+          </label>
+        </div>
+        <div class="schedule-note">
+          <svg class="icon" aria-hidden="true"><use href="#i-bell"></use></svg>
+          <p>页面开着，到点自动开工；页面关着，下次打开会先问你。</p>
+        </div>
+        <p class="form-error" id="scheduleError" role="alert" hidden></p>
+      </div>
+      <div class="dialog-foot">
+        <button class="btn btn-ghost" type="button" data-close="scheduleDialog">取消</button>
+        <button class="btn btn-primary" type="submit">预约</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="dialog dialog-finish" id="finishDialog" aria-labelledby="finishTitle">
+    <div class="dialog-head">
+      <div>
+        <p class="eyebrow" id="finishEyebrow">收工</p>
+        <h2 id="finishTitle">这一轮，办完了吗？</h2>
+      </div>
+      <button class="icon-btn dialog-close" type="button" data-close="finishDialog" aria-label="关闭">
+        <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+      </button>
+    </div>
+    <div class="dialog-body">
+      <div class="finish-hero">
+        <strong id="finishDuration">0:00</strong>
+        <span id="finishTaskTitle">随手办的一件小事</span>
+      </div>
+      <div class="form-block" id="finishDetailBlock">
+        <label class="field-label" for="finishTitleInput">办了什么</label>
+        <input class="text-input" id="finishTitleInput" type="text" maxlength="40" autocomplete="off" placeholder="例如：洗了两双袜子">
+      </div>
+      <div class="form-block">
+        <span class="field-label">归到哪一类</span>
+        <div class="category-chips" id="finishCategoryChips" role="group" aria-label="选择分类"></div>
+      </div>
+      <p class="finish-note" id="finishNote">按你的实际情况选一个，不用勉强。</p>
+    </div>
+    <div class="dialog-foot finish-actions">
+      <button class="btn btn-primary" id="finishDoneBtn" type="button">办完了</button>
+      <button class="btn btn-secondary" id="finishPartialBtn" type="button">还差一点</button>
+      <button class="btn-text" id="finishDiscardBtn" type="button">这次不记账</button>
+    </div>
+  </dialog>
+
+  <dialog class="dialog" id="settingsDialog" aria-labelledby="settingsDialogTitle">
+    <div class="dialog-head">
+      <div>
+        <p class="eyebrow">偏好</p>
+        <h2 id="settingsDialogTitle">设置</h2>
+      </div>
+      <button class="icon-btn dialog-close" type="button" data-close="settingsDialog" aria-label="关闭">
+        <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+      </button>
+    </div>
+    <div class="dialog-body">
+      <div class="setting-row setting-row-col">
+        <div>
+          <strong>默认开工时长</strong>
+          <p>按「开工」时默认用多久。每次也能临时改。</p>
+        </div>
+        <div class="segmented segmented-sm" id="defaultMinutesPicker">
+          <button type="button" data-minutes="2">2 分</button>
+          <button type="button" data-minutes="5" class="is-selected">5 分</button>
+          <button type="button" data-minutes="10">10 分</button>
+          <button type="button" data-minutes="15">15 分</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div>
+          <strong>到点后继续正计时</strong>
+          <p>不打断你，超出的时间也记进去。</p>
+        </div>
+        <label class="switch">
+          <input id="overtimeToggle" type="checkbox">
+          <span aria-hidden="true"></span>
+          <span class="sr-only">到点后继续正计时</span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <div>
+          <strong>小事分类</strong>
+          <p id="categorySummary">家务、作业、身体、杂事、采买</p>
+        </div>
+        <button class="btn-text" id="manageCategoriesBtn" type="button">管理</button>
+      </div>
+      <div class="setting-row">
+        <div>
+          <strong>完成提示音</strong>
+          <p>一轮结束时，轻轻响一声。</p>
+        </div>
+        <label class="switch">
+          <input id="soundToggle" type="checkbox" checked>
+          <span aria-hidden="true"></span>
+          <span class="sr-only">完成提示音</span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <div>
+          <strong>办完庆祝</strong>
+          <p>每次开工结束，随机一个小动作。<span class="setting-extra" id="celebrationCount">40 种</span></p>
+        </div>
+        <div class="setting-row-actions">
+          <button class="btn-text" id="celebrationPreviewBtn" type="button">试一个</button>
+          <label class="switch">
+            <input id="celebrationToggle" type="checkbox" checked>
+            <span aria-hidden="true"></span>
+            <span class="sr-only">办完庆祝</span>
+          </label>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div>
+          <strong>桌面通知</strong>
+          <p id="notificationHint">允许后，预约到点或是完成时通知你。</p>
+        </div>
+        <label class="switch">
+          <input id="notifyToggle" type="checkbox">
+          <span aria-hidden="true"></span>
+          <span class="sr-only">桌面通知</span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <div>
+          <strong>安装到手机</strong>
+          <p id="installHint">像 App 一样从主屏幕打开，离线也能记。</p>
+        </div>
+        <button class="btn-text" id="installAppBtn" type="button" hidden>安装</button>
+      </div>
+      <div class="setting-divider"></div>
+      <div class="data-actions">
+        <button class="btn-text" id="exportBtnSettings" type="button">
+          <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+          导出全部数据
+        </button>
+        <button class="btn-text is-danger" id="clearDataBtn" type="button">
+          <svg class="icon" aria-hidden="true"><use href="#i-trash"></use></svg>
+          清空办事记录
+        </button>
+      </div>
+      <p class="privacy-note">这只记琐事，和日日新的专注数据完全分开。清理浏览器数据前，记得先导出。</p>
+    </div>
+  </dialog>
+
+  <dialog class="dialog category-dialog" id="categoryDialog" aria-labelledby="categoryDialogTitle">
+    <div class="dialog-head">
+      <div>
+        <p class="eyebrow">统计口径</p>
+        <h2 id="categoryDialogTitle">小事分类</h2>
+      </div>
+      <button class="icon-btn dialog-close" type="button" data-close="categoryDialog" aria-label="关闭">
+        <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+      </button>
+    </div>
+    <div class="dialog-body">
+      <p class="dialog-note">分类只用来分组看统计，不影响任何东西。</p>
+      <div class="category-manage-list" id="categoryManageList"></div>
+      <form class="category-form" id="categoryForm" novalidate>
+        <span class="field-label" id="categoryFormLabel">添加分类</span>
+        <div class="category-form-row">
+          <input id="categoryNameInput" type="text" maxlength="12" autocomplete="off" placeholder="例如：家务、作业">
+          <button class="btn btn-primary" id="categorySubmitBtn" type="submit">添加</button>
+        </div>
+        <div class="color-swatches" id="categoryColorSwatches" role="group" aria-label="选择分类颜色"></div>
+        <button class="btn-text" id="categoryCancelEdit" type="button" hidden>取消修改</button>
+        <p class="form-error" id="categoryError" role="alert" hidden></p>
+      </form>
+      <p class="category-note">分类被删掉后，旧记录会显示为「未分类」。</p>
+    </div>
+    <div class="dialog-foot">
+      <button class="btn btn-primary" type="button" data-close="categoryDialog">完成</button>
+    </div>
+  </dialog>
+
+  <dialog class="celebration-dialog" id="celebrationDialog" aria-labelledby="celebrationText" aria-describedby="celebrationGroup celebrationCue">
+    <div class="celebration-glow" aria-hidden="true"></div>
+    <div class="celebration-sky" id="celebrationSky" aria-hidden="true"></div>
+    <div class="celebration-card">
+      <p class="celebration-kicker" id="celebrationKicker">开工 5 分钟 · 完成</p>
+      <span class="celebration-medallion" id="celebrationMedallion" aria-hidden="true">
+        <span class="celebration-halo"></span>
+        <svg class="icon"><use href="#i-sparkles"></use></svg>
+      </span>
+      <p class="celebration-group" id="celebrationGroup">A · 短句</p>
+      <p class="celebration-text" id="celebrationText" aria-live="polite">把抹布甩到肩上，说一句：上。</p>
+      <p class="celebration-cue" id="celebrationCue">做出来，或只在心里做。</p>
+      <p class="celebration-principle">即时 · 真实 · 一个就够</p>
+      <div class="celebration-actions">
+        <button class="btn celebration-done" id="celebrationDoneBtn" type="button">我庆祝完了</button>
+        <button class="celebration-again" id="celebrationAnotherBtn" type="button">
+          <svg class="icon" aria-hidden="true"><use href="#i-undo"></use></svg>
+          换一个
+        </button>
+      </div>
+      <button class="celebration-skip" id="celebrationSkipBtn" type="button">跳过</button>
+    </div>
+  </dialog>
+
+  <dialog class="dialog" id="confirmDialog" aria-labelledby="confirmTitle">
+    <div class="dialog-head">
+      <h2 id="confirmTitle">确认</h2>
+      <button class="icon-btn dialog-close" type="button" data-close="confirmDialog" aria-label="关闭">
+        <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+      </button>
+    </div>
+    <div class="dialog-body">
+      <p class="confirm-copy" id="confirmMessage"></p>
+    </div>
+    <div class="dialog-foot">
+      <button class="btn btn-ghost" id="confirmCancel" type="button">取消</button>
+      <button class="btn btn-danger" id="confirmOk" type="button">确认</button>
+    </div>
+  </dialog>
+
+  <div class="toast-host" id="toastHost" aria-live="polite" aria-atomic="false"></div>
+
+  <noscript>
+    <div class="noscript">日日办需要启用 JavaScript 才能运行。</div>
+  </noscript>
+
+  <script src="quotes.js?v=3"></script>
+  <script src="celebrations.js?v=3"></script>
+  <script src="app.js?v=3"></script>
+</body>
+</html>
